@@ -68,7 +68,7 @@
   .scr::after { content:""; position:absolute; inset:0; background:linear-gradient(118deg, rgba(255,255,255,.34) 0, rgba(255,255,255,.08) 28%, transparent 40%); pointer-events:none; }
   .isl { position:absolute; top:.9em; left:50%; width:var(--iw,4.8em); height:1.35em; border-radius:1em; background:#000; transform:translateX(-50%); box-shadow:inset -.35em 0 0 -.1em #0B1A33; }
   .sb { position:absolute; top:.95em; left:1.9em; right:1.9em; display:flex; justify-content:space-between; font-size:1.05em; font-weight:600; }
-  .clk { margin-top:5.2em; text-align:center; font-size:5.4em; font-weight:600; line-height:1; letter-spacing:-.04em; text-shadow:0 .1em .4em rgba(0,0,0,.3); }
+  .clk { margin-top:.95em; text-align:center; font-size:5.4em; font-weight:600; line-height:1; letter-spacing:-.04em; text-shadow:0 .1em .4em rgba(0,0,0,.3); }
   .nm { margin-top:.9em; text-align:center; font-size:1.25em; font-weight:700; }
   .nm small { display:block; margin-top:.3em; font-family:'Hind',sans-serif; font-weight:500; font-size:.78em; opacity:.85; }
   .apps { position:absolute; left:1.6em; right:1.6em; bottom:3.2em; display:grid; grid-template-columns:repeat(4,1fr); gap:1.1em .9em; }
@@ -84,6 +84,28 @@
   .finance { margin-top:16px; font-size:.78rem; color:var(--muted); }
   .chips { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:8px; }
   .chips span { font-size:.8rem; font-weight:500; padding:7px 12px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.06); }
+  .info, .offers, .emi { margin-top:18px; text-align:left; }
+  .info { padding:16px; border:1px solid var(--line); border-radius:20px; background:var(--glass); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); text-align:center; }
+  .status { display:inline-flex; align-items:center; gap:8px; font-family:'Sora',sans-serif; font-weight:600; font-size:.95rem; }
+  .dot { width:10px; height:10px; border-radius:50%; background:#2ECC71; animation:ping 1.8s infinite; }
+  .closed .dot { background:#FF5A5F; animation:none; }
+  @keyframes ping { 0% { box-shadow:0 0 0 0 rgba(46,204,113,.6); } 70%,100% { box-shadow:0 0 0 9px rgba(46,204,113,0); } }
+  .hours { margin-top:4px; color:var(--muted); font-size:.9rem; }
+  .cta { display:flex; gap:10px; margin-top:14px; }
+  .btn { flex:1; text-decoration:none; text-align:center; font-weight:600; padding:13px 8px; border-radius:14px; background:var(--blue); color:#fff; }
+  .btn.alt { background:rgba(255,255,255,.1); border:1px solid var(--line); }
+  .btn:focus-visible { outline:3px solid #fff; outline-offset:3px; }
+  .offers h2, .emi h2 { font-family:'Sora',sans-serif; font-size:1.05rem; margin:0 0 10px 2px; }
+  .ofs { display:grid; gap:10px; }
+  .of { padding:14px 16px; border-radius:18px; border:1px solid var(--line); background:linear-gradient(120deg,rgba(45,140,255,.24),rgba(123,63,228,.18)); }
+  .of b { display:block; font-family:'Sora',sans-serif; font-size:.98rem; margin-bottom:2px; }
+  .of span { font-size:.88rem; color:#C5D3E6; }
+  .emi { text-align:center; } .emi h2 { margin-left:0; }
+  .idfc { position:relative; padding:18px 16px 16px; border-radius:20px; border:1px solid rgba(255,215,130,.65); background:linear-gradient(120deg,#8E1B3A,#C8365B); box-shadow:0 14px 30px -12px rgba(200,54,91,.7); }
+  .idfc .tag { display:inline-block; font-size:.72rem; font-weight:600; padding:3px 10px; border-radius:999px; background:#FFD782; color:#4A1020; }
+  .idfc strong { display:block; margin-top:8px; font-family:'Sora',sans-serif; font-size:1.25rem; }
+  .idfc small { display:block; margin-top:3px; font-size:.88rem; color:#FFE3EA; }
+  .emi .chips { margin-top:12px; }
   footer { margin-top:24px; font-size:.75rem; color:#7387A0; }
   @media (max-width:360px) { .brands span { font-size:.75rem; } .logo b { font-size:1.6rem; } .stage { transform:scale(.9); transform-origin:top center; } }
   @media (prefers-reduced-motion:reduce) { .orb, .rig, .phone { animation:none; } .tilt, .tile { transition:none; } }
@@ -124,12 +146,23 @@
     </div></div>
   </div>
 
-  <div class="brands" aria-label="Brands">
+  <section class="info">
+    <div class="status" id="status"><i class="dot"></i><span id="stText">Timing check ho rahi hai...</span></div>
+    <p class="hours">Shop timing: 11:00 AM - 10:00 PM</p>
+    <div class="cta"><a class="btn" id="callBtn">Call karein</a><a class="btn alt" id="mapBtn" target="_blank" rel="noopener">Rasta dekhein</a></div>
+  </section>
+
+  <section class="offers"><h2>Aaj ke offers</h2><div class="ofs" id="offers"></div></section>
+
+  <div class="brands" aria-label="Brands" style="margin-top:22px">
     <span style="font-weight:600">Apple</span><span style="font-weight:800;letter-spacing:1px">SAMSUNG</span><span style="font-weight:700">oppo</span><span>vivo</span><span style="font-weight:600">realme</span>
   </div>
 
-  <p class="finance">Easy EMI aur finance available</p>
-  <div class="chips"><span>Bajaj Finserv</span><span>IDFC FIRST Bank</span><span>TVS Credit</span><span>Home Credit</span><span>HDB Financial</span></div>
+  <section class="emi">
+    <h2>Easy EMI available</h2>
+    <div class="idfc"><span class="tag">Priority EMI partner</span><strong>IDFC FIRST Bank</strong><small>Aasan kisto mein naya smartphone</small></div>
+    <div class="chips"><span>Bajaj Finserv</span><span>TVS Credit</span><span>Home Credit</span><span>HDB Financial</span></div>
+  </section>
 
   <footer>&copy; <span id="yr"></span> Shivraj Enterprises. All rights reserved.</footer>
 </main>
@@ -138,7 +171,7 @@
   // ====== SOCIAL LINKS (yahin se badal sakte hain) ======
   const LINKS = {
     instagram: "https://www.instagram.com/shivraj_mobile_2022/",
-    whatsapp:  "https://wa.me/919022951981",  // customers ke liye isse badal kar wa.me/91XXXXXXXXXX ya group invite link lagayein
+    whatsapp:  "https://wa.me/919022951981?text=Hello%20Shivraj%20Mobile%2C%20mujhe%20latest%20offers%20jaanne%20hain.",  // customers ke liye isse badal kar wa.me/91XXXXXXXXXX ya group invite link lagayein
     google:    "https://www.google.com/maps/place/Shivraj+Mobile/@18.6699212,73.7983076,21z/data=!4m6!3m5!1s0x3bc2b7e582934771:0x9f3c8ff96ef93d14!8m2!3d18.669956!4d73.7982684!16s%2Fg%2F11scv9ppyv"
   };
   // ======================================================
@@ -146,6 +179,35 @@
   document.getElementById("waLink").href = LINKS.whatsapp;
   document.getElementById("gLink").href  = LINKS.google;
   document.getElementById("yr").textContent = new Date().getFullYear();
+
+  // ====== SHOP DETAILS (yahin se badal sakte hain) ======
+  const SHOP = {
+    phone: "",   // 10 digit number, jaise "9876543210" (khaali rakha to Call button chhup jaayega)
+    offers: [
+      { t: "Diwali Special", d: "Selected smartphones par khaas festival offers" },
+      { t: "Exchange Offer", d: "Purana phone dekar naya phone aasani se lein" },
+      { t: "Easy EMI", d: "IDFC FIRST Bank ke saath aasan kisto mein" }
+    ]
+  };
+  // =======================================================
+  document.getElementById("offers").innerHTML = SHOP.offers.map(o => `<div class="of"><b>${o.t}</b><span>${o.d}</span></div>`).join("");
+  const callBtn = document.getElementById("callBtn");
+  if (SHOP.phone) callBtn.href = "tel:+91" + SHOP.phone; else callBtn.style.display = "none";
+  document.getElementById("mapBtn").href = LINKS.google;
+
+  // open / closed badge (11 AM - 10 PM)
+  function updateStatus() {
+    const d = new Date(), m = d.getHours() * 60 + d.getMinutes(), open = 11 * 60, close = 22 * 60;
+    const box = document.getElementById("status"), txt = document.getElementById("stText");
+    if (m >= open && m < close) {
+      box.classList.remove("closed");
+      txt.textContent = close - m <= 30 ? "Jaldi band hone wali hai (10 PM tak)" : "Abhi khula hai · 10 PM tak";
+    } else {
+      box.classList.add("closed");
+      txt.textContent = "Abhi band hai · " + (m < open ? "aaj" : "kal") + " 11 AM se khulegi";
+    }
+  }
+  updateStatus(); setInterval(updateStatus, 60000);
 
   document.querySelectorAll(".apps").forEach(a => { a.innerHTML = "<u></u>".repeat(8); });
 
